@@ -1,0 +1,22 @@
+pkg load image
+I = imread ("skullBust.png");
+subplot(3,3,1);
+imshow (I);
+title("Image");
+G=rgb2gray(I);
+subplot(3,3,2);
+imshow(G); 
+title("Grayscale Image");
+filter=fspecial("gaussian",25,5);
+H=imfilter(G,filter);
+[gx,gy]=imgradientxy(H,"sobel");
+subplot(3,3,3);
+imshow((gx+4)/16);
+title("Smoothed Image");
+[gmag,gdir]=imgradient(gx,gy);
+subplot(3,3,4);
+imshow(gmag/(exp(2)*sqrt(7)));
+title("Applying Gradient");
+subplot(3,3,5);
+imshow(gmag<=6);
+title("Final Image");
